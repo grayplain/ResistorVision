@@ -20,13 +20,14 @@ class LoadImage:
         return cv.cvtColor(img, cv.COLOR_BGR2HSV)
 
     def extract_color_image(self, file_name, hue, saturation, brightness):
-        threshold = 10
-        low_color = [hue - threshold, saturation - threshold, brightness - threshold]
-        high_color = [hue + threshold, saturation + threshold, brightness + threshold]
+        threshold = 40
+        low_color = np.array([hue - threshold, saturation - threshold, brightness - threshold])
+        high_color = np.array([hue + threshold, saturation + threshold, brightness + threshold])
 
-        hsv_image = self.load_hsv_image(file_name)
-
-
+        # hsv_image = self.load_hsv_image(file_name)
+        # return cv.inRange(hsv_image, low_color, high_color)
+        raw_image = self.load_raw_image(file_name)
+        return cv.inRange(raw_image, low_color, high_color)
 
 
 
