@@ -13,6 +13,10 @@ if __name__ == '__main__':
 
     # HSV色空間の画像ロード
     # img = loadImageClass.load_hsv_image(IMAGE_FILE_NAME)
+zw
+    img = loadImageClass.extract_color_image(IMAGE_FILE_NAME, 20, 20, 20)
+    # 特定色でフィルタリングした後の画像
+    # loadImageClass.show_image(img)
 
-    img = loadImageClass.extract_color_image(IMAGE_FILE_NAME, 110, 170, 190)
-    loadImageClass.show_image(img)
+    cont_image = loadImageClass.contour_image(img)
+    loadImageClass.show_image(cont_image)

@@ -29,5 +29,25 @@ class LoadImage:
         raw_image = self.load_raw_image(file_name)
         return cv.inRange(raw_image, low_color, high_color)
 
+    def contour_image(self, file_image):
+        #  輪郭の抽出モード一覧　https://bit.ly/3nPMHEm
+        #  輪郭の近似 https://bit.ly/3HUYdqj
+        image, contours, hierarchy = cv.findContours(file_image, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
 
+        max_area_list = list(map(cv.contourArea, contours))
+        max_area_value = max(max_area_list)
+        if(max_area_value == 0):
+            return 0
 
+        max_area_index = max_area_list.index(max_area_value)
+        # 抽出した領域のうち、最大面積の領域
+        # contours[max_area_index]
+        # モーメントを取得する
+        moment_result = cv.moments(contours[max_area_index])
+        # 産出したモーメントから各種情報を取得する方法　https://bit.ly/3cJD9ER
+
+        # これはXY座標情報
+        cx = int(moment_result['m10'] / moment_result['m00'])
+        cy = int(moment_result['m01'] / moment_result['m00'])
+
+        return image
